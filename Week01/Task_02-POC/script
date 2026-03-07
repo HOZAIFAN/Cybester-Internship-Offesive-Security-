@@ -1,0 +1,163 @@
+I used WhatWeb to perform technology fingerprinting on the target website. The tool identified technologies such as jQuery, HTTP headers, cookies, and security configurations. This helps understand the technology stack and identify potential vulnerabilities related to outdated libraries or misconfigured headers.
+
+WhatWeb Command Used
+whatweb -v -a 3 https://hackthissite.org
+Explanation:
+whatweb
+Website fingerprinting tool used to detect technologies like CMS, frameworks, server type, and libraries used by a website.
+-v
+Verbose mode.
+Shows detailed output like detected plugins, headers, and technology information.
+-a 3
+Aggression level.
+Controls how deeply WhatWeb scans the target.
+Levels:
+-a 1 → Passive scan
+-a 2 → Moderate scan
+-a 3 → Aggressive scan (commonly used)
+-a 4 → Very aggressive scan
+
+https://hackthissite.org
+Target website being scanned.
+
+Most Useful Commands:
+
+Scan a single website
+whatweb https://example.com
+
+Scan with aggressive detection
+whatweb -a 3 https://example.com
+
+Scan multiple targets from file
+whatweb -i targets.txt
+
+Save results to file
+whatweb -i targets.txt --log-brief results.txt
+
+Detailed output report
+whatweb -i targets.txt --log-verbose detailed.txt
+
+
+
+
+
+
+1️⃣ WHOIS
+
+Purpose:
+WHOIS is used to find information about a domain such as:
+• Domain owner
+• Registrar
+• IP ranges
+• Name servers
+• Registration dates
+
+Command:
+whois hackthissite.org
+
+What it tells you:
+• Organization owning the domain
+• Name servers (DNS servers)
+• IP blocks sometimes belonging to the company
+• Contact information
+
+Why pentesters use it:
+Helps identify infrastructure owned by the organization and sometimes reveals additional domains.
+
+--------------------------------------------------
+
+2️⃣ NSLOOKUP
+
+Purpose:
+NSLookup is used to query DNS records of a domain.
+
+Basic Command:
+nslookup hackthissite.org
+
+Output shows:
+• Domain IP address
+• DNS server used to resolve the query
+
+--------------------------------------------------
+
+Common DNS Records to Query
+
+Check A Record (IP address)
+nslookup hackthissite.org
+
+Check Name Servers
+nslookup -type=ns hackthissite.org
+
+Check Mail Servers
+nslookup -type=mx hackthissite.org
+
+Check TXT Records (sometimes contain secrets)
+nslookup -type=txt hackthissite.org
+
+--------------------------------------------------
+
+Example Workflow in Recon
+
+1. Find domain info
+whois hackthissite.org
+
+2. Find domain IP
+nslookup hackthissite.org
+
+3. Find name servers
+nslookup -type=ns hackthissite.org
+
+4. Find mail servers
+nslookup -type=mx hackthissite.org
+
+--------------------------------------------------
+
+Why this is important in bug bounty
+
+• Reveals infrastructure
+• Shows DNS configuration
+• Helps find additional attack surface
+• Sometimes exposes internal services
+
+
+
+
+
+
+DNS reconnaissance is important because it reveals the target’s infrastructure, servers, email systems, and possible weak points before scanning or attacking.
+
+
+
+
+site:hackthissite.org
+site:*.hackthissite.org
+site:hackthissite.org inurl:admin
+site:hackthissite.org inurl:login
+site:hackthissite.org inurl:dashboard
+site:hackthissite.org inurl:config
+site:hackthissite.org inurl:backup
+site:hackthissite.org inurl:phpinfo
+site:hackthissite.org filetype:env
+site:hackthissite.org filetype:sql
+site:hackthissite.org filetype:log
+site:hackthissite.org filetype:zip
+site:hackthissite.org filetype:bak
+site:hackthissite.org filetype:json
+site:hackthissite.org filetype:xml
+site:hackthissite.org filetype:txt
+site:hackthissite.org filetype:conf
+site:hackthissite.org filetype:config
+site:hackthissite.org intitle:"index of"
+site:hackthissite.org intitle:"index of" backup
+site:hackthissite.org intitle:"index of" uploads
+site:hackthissite.org intitle:"index of" database
+site:hackthissite.org "phpinfo()"
+site:hackthissite.org "DB_PASSWORD"
+site:hackthissite.org "api_key"
+site:hackthissite.org "secret_key"
+site:hackthissite.org "access_key"
+site:hackthissite.org "aws_access_key"
+site:hackthissite.org intext:"password"
+site:hackthissite.org intext:"username"
+site:hackthissite.org robots.txt
+cache:hackthissite.org

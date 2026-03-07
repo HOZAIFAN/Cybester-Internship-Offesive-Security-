@@ -1,0 +1,17 @@
+During this task, I explored how exposed Git repositories can leak sensitive information. I used OWASP Juice Shop, an intentionally vulnerable application, to understand the concept safely. Normally, a .git directory contains the full history of the project, including previous versions of files, configuration settings, and sometimes credentials. If this directory is accessible via a web server, an attacker could download it and reconstruct the repository to find sensitive data.
+
+![Insert Screenshot: OWASP Juice Shop running]
+
+To simulate this, I set up a local web server with a test Git repository containing a sample password. Using GitHacker, I was able to download and reconstruct the repository locally, then examine the commit history to see previous versions and stored credentials. This process clearly demonstrates how careless configuration can expose passwords, API keys, or other sensitive information in previous commits.
+
+![Insert Screenshot: GitHacker running and extracting repository]
+
+This exercise shows the importance of properly securing .git directories on web servers and following best deployment practices to prevent accidental exposure of sensitive data.
+
+![Insert Screenshot: Viewing commit history and extracted credentials]
+
+
+
+
+
+Another common method used to find leaked credentials is GitHub dorking on GitHub, where researchers search public repositories using specific keywords that may reveal sensitive information. Developers sometimes accidentally upload configuration files or secrets when pushing code. Common search keywords include password, passwd, api_key, secret, token, access_key, private_key, client_secret, db_password, AWS_ACCESS_KEY, authorization, .env, config, credentials, and database_url. These terms often appear in configuration files, environment files, or scripts and may expose internal credentials or service keys. Security case studies published on platforms like Medium and InfoSec Write-ups show that using such keywords can sometimes reveal organization domains, internal accounts, and API tokens if repositories are publicly accessible.
